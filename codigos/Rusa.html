@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiplicación Rusa</title>
+	<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #3498db;
+            color: #fff;
+            padding: 20px;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #resultado {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Multiplicación Rusa</h1>
+    <p>Ingrese dos números enteros:</p>
+    <input type="number" id="numero1">
+    <input type="number" id="numero2">
+    <button onclick="calcularMultiplicacionRusa()">Calcular</button>
+    <div id="resultado"></div>
+
+    <script>
+        function calcularMultiplicacionRusa() {
+            // Obtener los números ingresados por el usuario
+            var inputNumero1 = document.getElementById("numero1");
+            var inputNumero2 = document.getElementById("numero2");
+            var multiplicando = parseInt(inputNumero1.value);
+            var multiplicador = parseInt(inputNumero2.value);
+
+            // Validar que se hayan ingresado números enteros positivos
+            if (isNaN(multiplicando) || isNaN(multiplicador) || multiplicando < 0 || multiplicador < 0) {
+                alert("Por favor, ingrese dos números enteros positivos.");
+                return;
+            }
+
+            // Inicializar el proceso de multiplicación rusa
+            var proceso = [];
+            var resultado = 0;
+
+            // Realizar la multiplicación rusa
+            while (multiplicando > 0) {
+                if (multiplicando % 2 !== 0) {
+                    proceso.push(`${multiplicador} (duplicado)`);
+                    resultado += multiplicador;
+                }
+                multiplicando = Math.floor(multiplicando / 2);
+                multiplicador *= 2;
+            }
+
+            // Mostrar el proceso y el resultado
+            var resultadoDiv = document.getElementById("resultado");
+            resultadoDiv.innerHTML = `<p>Proceso:</p><ul>${proceso.map(item => `<li>${item}</li>`).join("")}</ul><p>Resultado: ${resultado}</p>`;
+        }
+    </script>
+</body>
+</html>
